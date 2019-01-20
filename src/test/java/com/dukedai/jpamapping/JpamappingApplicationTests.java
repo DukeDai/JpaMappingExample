@@ -43,10 +43,10 @@ public class JpamappingApplicationTests {
         Optional<ProductEntity> productHolder = productRepository.findById(1L);
         if (productHolder.isPresent()) {
             ProductEntity product = productHolder.get();
-            Assert.assertTrue(product.getItemList().size() == 2);
+            Assert.assertTrue(product.getItemList().size() == 9);
             Assert.assertTrue(product.getItemList().get(0).getAttributeList().size() == 2);
 
-            Assert.assertTrue(product.getPropertyList().size() == 2);
+            Assert.assertTrue(product.getPropertyList().size() == 8);
             Assert.assertTrue(product.getPropertyList().get(1).getValueList().size() == 2);
         }
     }
@@ -66,22 +66,17 @@ public class JpamappingApplicationTests {
             product.getItemList().add(item3);// new insert row got updated again without change, not knowing why.
 
             product.getPropertyList().get(0).getValueList().get(0).setValue("updated value");
-            ProductItemEntity item3 = produceItem(product, "item 3");
-            product.getItemList().add(item3);// new insert row got updated again without change, not knowing why.
-
-            product.getPropertyList().get(0).getValueList().get(0).setValue("updated value");
 
             ProductPropertyEntity prop3 = producePropertyEntity(product, "prop 3");
             product.getPropertyList().add(prop3);
 
-
             product = productRepository.save(product);
 
             // the size is changing.
-            Assert.assertTrue(product.getItemList().size() + "", product.getItemList().size() == 6);
+            Assert.assertTrue(product.getItemList().size() + "", product.getItemList().size() == 9);
             Assert.assertTrue(product.getItemList().get(2).getAttributeList().size() == 2);
 
-            Assert.assertTrue(product.getPropertyList().size() == 5);
+            Assert.assertTrue(product.getPropertyList().size() == 8);
             Assert.assertTrue(product.getPropertyList().get(1).getValueList().size() == 2);
             Assert.assertTrue("updated value".equals(product.getPropertyList().get(0).getValueList().get(0).getValue()));
         }

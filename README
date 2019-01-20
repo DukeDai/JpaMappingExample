@@ -1,0 +1,5 @@
+* SpringBoot with JPA
+* JPA configuration in application.properties
+* Cascading configuration in entity
+* Usage in UT
+* lombok usage in build.gradle
