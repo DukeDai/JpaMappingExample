@@ -66,14 +66,22 @@ public class JpamappingApplicationTests {
             product.getItemList().add(item3);// new insert row got updated again without change, not knowing why.
 
             product.getPropertyList().get(0).getValueList().get(0).setValue("updated value");
+            ProductItemEntity item3 = produceItem(product, "item 3");
+            product.getItemList().add(item3);// new insert row got updated again without change, not knowing why.
+
+            product.getPropertyList().get(0).getValueList().get(0).setValue("updated value");
+
+            ProductPropertyEntity prop3 = producePropertyEntity(product, "prop 3");
+            product.getPropertyList().add(prop3);
+
 
             product = productRepository.save(product);
 
             // the size is changing.
-            Assert.assertTrue(product.getItemList().size() + "", product.getItemList().size() == 3);
+            Assert.assertTrue(product.getItemList().size() + "", product.getItemList().size() == 6);
             Assert.assertTrue(product.getItemList().get(2).getAttributeList().size() == 2);
 
-            Assert.assertTrue(product.getPropertyList().size() == 2);
+            Assert.assertTrue(product.getPropertyList().size() == 5);
             Assert.assertTrue(product.getPropertyList().get(1).getValueList().size() == 2);
             Assert.assertTrue("updated value".equals(product.getPropertyList().get(0).getValueList().get(0).getValue()));
         }
@@ -111,12 +119,12 @@ public class JpamappingApplicationTests {
 
     private List<ProductPropertyEntity> producePropertyEntityList(ProductEntity product) {
         List<ProductPropertyEntity> itemList = new ArrayList<>();
-        itemList.add(productPropertyEntity(product, "prop 1"));
-        itemList.add(productPropertyEntity(product, "prop 2"));
+        itemList.add(producePropertyEntity(product, "prop 1"));
+        itemList.add(producePropertyEntity(product, "prop 2"));
         return itemList;
     }
 
-    private ProductPropertyEntity productPropertyEntity(ProductEntity product, String propertyName) {
+    private ProductPropertyEntity producePropertyEntity(ProductEntity product, String propertyName) {
         ProductPropertyEntity property = new ProductPropertyEntity();
         property.setName(product.getName() + " " + propertyName);
         property.setProduct(product);
